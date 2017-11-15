@@ -15,7 +15,24 @@ class CreateDomainsTable extends Migration
     {
         Schema::create('domains', function (Blueprint $table) {
             $table->increments('id');
+
+            $table->integer('client_id')->unsigned();
+            $table->integer('provider_id')->unsigned();
+
+            $table->string('nombre', 128);
+            $table->date('registro');
+            $table->date('vence');
+            $table->text('observacion')->nullable();
+
+            $table->enum('estado',['ACTIVO', 'INACTIVO'])->dafault('ACTIVO');
+
             $table->timestamps();
+
+            //Relaciones
+            $table->foreign('client_id')->references('id')->on('clients');
+            $table->foreign('provider_id')->references('id')->on('providers');
+            
+
         });
     }
 

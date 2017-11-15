@@ -15,7 +15,15 @@ class CreateAccountProviderTable extends Migration
     {
         Schema::create('account_provider', function (Blueprint $table) {
             $table->increments('id');
+
+            $table->integer('account_id')->unsigned();
+            $table->integer('provider_id')->unsigned();
+
             $table->timestamps();
+
+            //Relaciones
+            $table->foreign('account_id')->references('id')->on('accounts');
+            $table->foreign('provider_id')->references('id')->on('providers');
         });
     }
 
