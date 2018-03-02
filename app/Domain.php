@@ -9,7 +9,11 @@ class Domain extends Model
     protected $table = "domains";
 
     protected $fillable = [
-        'client_id', 'provider_id', 'nombre', 'registro', 'vence', 'observacion', 'estado'
+        'client_id', 'provider_id', 'account_id', 'nombre', 'registro', 'vence', 'observacion', 'estado'
+    ];
+
+    protected $dates = [
+        'registro', 'vence'
     ];
 
     //muchos dominio perteneces a un cliente
@@ -22,6 +26,12 @@ class Domain extends Model
     public function provider()
     {
         return $this->belongsTo('Appdominio\Provider');
+    }
+
+    //muchos dominios pertenecen a una cuenta
+    public function account()
+    {
+        return $this->belongsTo('Appdominio\Account');
     }
      
 }

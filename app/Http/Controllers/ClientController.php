@@ -3,6 +3,8 @@
 namespace Appdominio\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Appdominio\Client;
+use Appdominio\Http\Requests\ClientRequest;
 
 class ClientController extends Controller
 {
@@ -13,7 +15,8 @@ class ClientController extends Controller
      */
     public function index()
     {
-        //
+        $clients = Client::orderBy('id', 'ASC')->paginate(10);
+        return view('clients.index', compact('clients'));
     }
 
     /**
@@ -22,8 +25,8 @@ class ClientController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
+    {       
+        return view('clients.create');
     }
 
     /**
@@ -32,9 +35,18 @@ class ClientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ClientRequest $request)
     {
-        //
+        $client = new Client;
+
+        $client->nombre = $request->nombre;
+        $client->ruc = $request->ruc;
+        $client->email = $request->email;
+        $client->telefono = $request->telefono;
+
+        $client->save();
+
+        return redirect()->route('clientes.index')->with('info', 'El Cliente fue Guardado');
     }
 
     /**
@@ -45,7 +57,8 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-        //
+        $client = Client::find($id);
+        return view('clients.show', compact('client'));
     }
 
     /**
@@ -56,7 +69,8 @@ class ClientController extends Controller
      */
     public function edit($id)
     {
-        //
+        $client = Client::find($id);
+        return view('clients.edit', compact('client'));
     }
 
     /**
@@ -66,9 +80,18 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ClientRequest $request, $id)
     {
-        //
+        $client = Client::find($id);
+
+        $client->nombre = $request->nombre;
+        $client->ruc = $request->ruc;
+        $client->email = $request->email;
+        $client->telefono = $request->telefono;
+
+        $client->save();
+
+        return redirect()->route('clientes.index')->with('info', 'El Cliente fue actualizado');
     }
 
     /**
@@ -79,6 +102,8 @@ class ClientController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $client = Client::find($id);
+        $client->delete();
+        return back()->with('info', 'El Cliente fue Eliminado');
     }
 }

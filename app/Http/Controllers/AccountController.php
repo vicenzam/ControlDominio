@@ -3,6 +3,8 @@
 namespace Appdominio\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Appdominio\Account;
+use Appdominio\Http\Requests\AccountRequest;
 
 class AccountController extends Controller
 {
@@ -13,7 +15,8 @@ class AccountController extends Controller
      */
     public function index()
     {
-        //
+        $accounts = Account::orderBy('id', 'ASC')->paginate(10);
+        return view('accounts.index', compact('accounts'));
     }
 
     /**
@@ -23,7 +26,7 @@ class AccountController extends Controller
      */
     public function create()
     {
-        //
+        return view('accounts.create');
     }
 
     /**
@@ -32,9 +35,16 @@ class AccountController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AccountRequest $request)
     {
-        //
+        $account = new Account;
+
+        $account->nombre = $request->nombre;
+        $account->email = $request->email;
+       
+        $account->save();
+
+        return redirect()->route('cuentas.index')->with('info', 'La cuenta fue Guardada');
     }
 
     /**
@@ -45,7 +55,8 @@ class AccountController extends Controller
      */
     public function show($id)
     {
-        //
+        $account = Account::find($id);
+        return view('accounts.show', compact('account'));
     }
 
     /**
@@ -56,7 +67,8 @@ class AccountController extends Controller
      */
     public function edit($id)
     {
-        //
+        $account = Account::find($id);
+        return view('accounts.edit', compact('account'));
     }
 
     /**
@@ -68,7 +80,14 @@ class AccountController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $account = Account::find($id);
+
+        $account->nombre = $request->nombre;
+        $account->email = $request->email;
+
+        $account->save();
+
+        return redirect()->route('cuentas.index')->with('info', 'La cuenta fue actualizada');
     }
 
     /**
@@ -79,6 +98,8 @@ class AccountController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $account = Account::find($id);
+        $account->delete();
+        return back()->with('info', 'La cuenta fue Eliminada');
     }
 }

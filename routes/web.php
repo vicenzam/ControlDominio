@@ -11,6 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::redirect('/', 'dominios');
+
+Route::resource('clientes', 'ClientController');
+Route::resource('proveedores', 'ProviderController');
+Route::resource('cuentas', 'AccountController');
+Route::resource('dominios', 'DomainController');

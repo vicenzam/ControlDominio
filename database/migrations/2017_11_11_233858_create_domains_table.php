@@ -18,6 +18,7 @@ class CreateDomainsTable extends Migration
 
             $table->integer('client_id')->unsigned();
             $table->integer('provider_id')->unsigned();
+            $table->integer('account_id')->unsigned();
 
             $table->string('nombre', 128);
             $table->date('registro');
@@ -29,8 +30,9 @@ class CreateDomainsTable extends Migration
             $table->timestamps();
 
             //Relaciones
-            $table->foreign('client_id')->references('id')->on('clients');
-            $table->foreign('provider_id')->references('id')->on('providers');
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
+            $table->foreign('provider_id')->references('id')->on('providers')->onDelete('cascade');
+            $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
             
 
         });

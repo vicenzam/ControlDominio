@@ -3,6 +3,8 @@
 namespace Appdominio\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Appdominio\Provider;
+use Appdominio\Http\Requests\ProviderRequest;
 
 class ProviderController extends Controller
 {
@@ -13,7 +15,8 @@ class ProviderController extends Controller
      */
     public function index()
     {
-        //
+        $providers = Provider::orderBy('id', 'ASC')->paginate(10);
+        return view('providers.index', compact('providers'));
     }
 
     /**
@@ -23,7 +26,7 @@ class ProviderController extends Controller
      */
     public function create()
     {
-        //
+        return view('providers.create');
     }
 
     /**
@@ -32,9 +35,16 @@ class ProviderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProviderRequest $request)
     {
-        //
+        $provider = new Provider;
+
+        $provider->nombre = $request->nombre;
+        $provider->website = $request->website;
+       
+        $provider->save();
+
+        return redirect()->route('proveedores.index')->with('info', 'El Proveedor fue Guardado');
     }
 
     /**
@@ -45,7 +55,8 @@ class ProviderController extends Controller
      */
     public function show($id)
     {
-        //
+        $provider = Provider::find($id);
+        return view('providers.show', compact('provider'));
     }
 
     /**
@@ -56,7 +67,8 @@ class ProviderController extends Controller
      */
     public function edit($id)
     {
-        //
+        $provider = Provider::find($id);
+        return view('providers.edit', compact('provider'));
     }
 
     /**
@@ -66,9 +78,16 @@ class ProviderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProviderRequest $request, $id)
     {
-        //
+        $provider = Provider::find($id);
+
+        $provider->nombre = $request->nombre;
+        $provider->website = $request->website;
+
+        $provider->save();
+
+        return redirect()->route('proveedores.index')->with('info', 'El Proveedor fue actualizado');
     }
 
     /**
@@ -79,6 +98,8 @@ class ProviderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $provider = Provider::find($id);
+        $provider->delete();
+        return back()->with('info', 'El Proveedor fue Eliminado');
     }
 }

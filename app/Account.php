@@ -17,4 +17,10 @@ class Account extends Model
     {
         return $this->belongsToMany('Appdominio\Provider');
     }
+
+    //una cuenta tiene muchos dominios
+    public function domains()
+    {
+        return $this->hasMany('Appdominio\Domain');
+    }   
 }

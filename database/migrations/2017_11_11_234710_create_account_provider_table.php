@@ -22,8 +22,8 @@ class CreateAccountProviderTable extends Migration
             $table->timestamps();
 
             //Relaciones
-            $table->foreign('account_id')->references('id')->on('accounts');
-            $table->foreign('provider_id')->references('id')->on('providers');
+            $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
+            $table->foreign('provider_id')->references('id')->on('providers')->onDelete('cascade');
         });
     }
 
