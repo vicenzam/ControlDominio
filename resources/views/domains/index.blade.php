@@ -6,19 +6,41 @@
 
 @section('encabezado')
 	<div class="encabezado">
-	 <div class="container">
-	 	<div class="row">
-	 		<div class="col-6">
-	 			<h1 class="display-4">Dominios</h1>	 			
-	 		</div>
-	 		<div class="col-6 d-flex justify-content-end align-items-center">
-	 			<div class="encabezado__right">
-	 	  			<a class="btn btn-primary btn-lg" href="{{ route('dominios.create') }}" role="button">Nuevo Dominio</a>	 			
-	 			</div>
-	 		</div>
-	 		<hr class="my-4">	 	
-	 	</div>	 	
-	 </div>
+		<div class="container">
+			<div class="row">
+				<div class="col-6">
+					<h1 class="display-4">Dominios</h1>	 			
+				</div>
+				<div class="col-6 d-flex justify-content-end align-items-center">
+					<div class="encabezado__right">
+						<a class="btn btn-primary btn-lg" href="{{ route('dominios.create') }}" role="button">Nuevo Dominio</a>	 			
+					</div>
+				</div>
+				<hr class="my-4">	 	
+			</div>
+			<div class="row">
+				<div class="col-12">
+					<form action="{{ route('dominios.index') }}" method="GET">
+						{{ csrf_field() }}				
+						<div class="form-row">
+							<div class="col-auto">
+								<input type="text" name="nombre" class="form-control" placeholder="Buscar Dominio">
+							</div>
+							<div class="col-auto">
+								<input type="text" name="vence" class="form-control" placeholder="Fecha de Vencimiento">
+							</div>
+							{{-- <div class="col-auto">
+								<input type="text" name="provider_id" class="form-control" placeholder="Proveedor">
+							</div> --}}
+							<div class="col-auto">
+								<button type="submit" class="btn btn-primary mb-2"><span class="fa fa-search"></span> Buscar</button>
+							</div>
+						</div>
+						
+					</form>
+				</div>	
+			</div>	 	
+		</div>
 	</div>
 @endsection
 

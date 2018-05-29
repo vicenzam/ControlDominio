@@ -17,10 +17,19 @@ class DomainController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $nombre = $request->get('nombre');
+        /* $provider_id = $request->get('provider_id'); */
+        $vence = $request->get('vence');
+
         $now = Carbon::now();     
-        $domains = Domain::orderBy('id', 'ASC')->paginate(10);
+        $domains = Domain::orderBy('id', 'ASC')
+            ->nombre($nombre)
+            /* ->provider_id($provider_id) */
+            ->vence($vence)
+            ->paginate(20);
+
         return view('domains.index', compact('domains','now'));
        
     }

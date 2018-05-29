@@ -33,5 +33,23 @@ class Domain extends Model
     {
         return $this->belongsTo('Appdominio\Account');
     }
+
+    public function scopeNombre($query, $nombre)
+    {
+        if($nombre)
+            return $query->where('nombre', 'LIKE', "%$nombre%");
+    }
+
+    public function scopeVence($query, $vence)
+    {
+        if($vence)
+            return $query->where('vence', 'LIKE', "%$vence%");
+    }
+
+    /* public function scopeProviderId($query, $provider_id)
+    {
+        if($provider_id)
+            return $query->where('provider_id', 'LIKE', "%$provider_id%");
+    } */
      
 }
