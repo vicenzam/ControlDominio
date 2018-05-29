@@ -19,25 +19,25 @@
 				<hr class="my-4">	 	
 			</div>
 			<div class="row">
-				<div class="col-12">
-					<form action="{{ route('dominios.index') }}" method="GET">
-						{{ csrf_field() }}				
+				<div class="col-12">				
+					
+					{{ Form::open(['route' => 'dominios.index', 'method' => 'GET']) }}
 						<div class="form-row">
 							<div class="col-auto">
-								<input type="text" name="nombre" class="form-control" placeholder="Buscar Dominio">
+								{{ Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Dominio']) }}
 							</div>
 							<div class="col-auto">
-								<input type="text" name="vence" class="form-control" placeholder="Fecha de Vencimiento">
-							</div>
-							{{-- <div class="col-auto">
-								<input type="text" name="provider_id" class="form-control" placeholder="Proveedor">
-							</div> --}}
+								{{ Form::text('vence', null, ['class' => 'form-control', 'placeholder' => 'Fecha de Vencimiento']) }}
+							</div>							
 							<div class="col-auto">
-								<button type="submit" class="btn btn-primary mb-2"><span class="fa fa-search"></span> Buscar</button>
+								<button type="submit" class="btn btn-default mb-2">
+									<span class="fa fa-search"></span> Buscar				
+								</button>
 							</div>
 						</div>
-						
-					</form>
+			
+					{{ Form::close() }}
+
 				</div>	
 			</div>	 	
 		</div>

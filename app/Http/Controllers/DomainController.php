@@ -19,14 +19,12 @@ class DomainController extends Controller
      */
     public function index(Request $request)
     {
-        $nombre = $request->get('nombre');
-        /* $provider_id = $request->get('provider_id'); */
+        $nombre = $request->get('nombre');        
         $vence = $request->get('vence');
 
         $now = Carbon::now();     
         $domains = Domain::orderBy('id', 'ASC')
-            ->nombre($nombre)
-            /* ->provider_id($provider_id) */
+            ->nombre($nombre)           
             ->vence($vence)
             ->paginate(20);
 

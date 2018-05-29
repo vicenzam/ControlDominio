@@ -45,11 +45,5 @@ class Domain extends Model
         if($vence)
             return $query->where('vence', 'LIKE', "%$vence%");
     }
-
-    /* public function scopeProviderId($query, $provider_id)
-    {
-        if($provider_id)
-            return $query->where('provider_id', 'LIKE', "%$provider_id%");
-    } */
      
 }
